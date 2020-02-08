@@ -45,31 +45,34 @@ class MinimaxAgent(object):
         elif score==2:
             return -10+depth
         if state[1]=='O':
-            best=-1000;
+            best=-1000
+            c=0
             for action in ava_actions:
-                ava_actions.remove(action);
+                ava_actions.remove(action)
                 best=max(best,self.minimax1(after_action_state(state,action),ava_actions,depth+1))
-                ava_actions.append(action);
-                ava_actions.sort()
+                ava_actions.insert(c,action)
+                c+=1
             return best
         else:
-            best=1000;
+            best=1000
+            c=0
             for action in ava_actions:
-                ava_actions.remove(action);
+                ava_actions.remove(action)
                 best=min(best,self.minimax1(after_action_state(state,action),ava_actions,depth+1))
-                ava_actions.append(action);
-                ava_actions.sort()
+                ava_actions.insert(c,action)
+                c+=1
             return best
 
 
     def act(self, state, ava_actions):
         best=-1000
         bestact=-1
+        c=0
         for action in ava_actions:
-            ava_actions.remove(action);
+            ava_actions.remove(action)
             moveVal=self.minimax1(after_action_state(state,action),ava_actions,0)
-            ava_actions.append(action);
-            ava_actions.sort()
+            ava_actions.insert(c,action)
+            c+=1
             if moveVal>best :
                 best=moveVal
                 bestact=action
